@@ -2,10 +2,6 @@ import { Component } from 'react';
 import { nanoid } from 'nanoid';
 import { FormAddContact, InputAddContact, LabelAddContact, LabelAddContactTel, ButtonAddContact } from './AddContact.styled';
 
-
-
-
-
 export class AddContact extends Component  {
 state = {
 name: '',
