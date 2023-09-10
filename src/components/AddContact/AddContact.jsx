@@ -1,43 +1,39 @@
-import { Component } from 'react';
+import { useState } from 'react';
 import { nanoid } from 'nanoid';
 import { FormAddContact, InputAddContact, LabelAddContact, LabelAddContactTel, ButtonAddContact } from './AddContact.styled';
+import propTypes from 'prop-types'
 
-export class AddContact extends Component  {
-state = {
-name: '',
-number: ''
-}
+export const AddContact = ({ addNewContact}) => {
+    const [name, setName] = useState('')
+    const [number, setNumber] = useState('')
 
 
-    handelChangeInput = (e) => {
-        this.setState({
-            [e.target.name]: e.currentTarget.value
-        })
+    const handelChangeInput = (e) => {
+        switch (e.target.name) {
+        case 'name' :
+        return setName(e.currentTarget.value)
+        case 'number':
+        return setNumber(e.currentTarget.value) 
+        default :
+        }
     }
-    
-    handleAddInList = (e) => {
-    e.preventDefault();
-    this.props.addNewContact({ id: nanoid(5), ...this.state });
-    this.setState({
-    name: '',
-    number: ''
-    });
-
+    const handleAddInList = (e) => {
+        e.preventDefault();
+        addNewContact({ id: nanoid(5), name, number });
+        setName('')
+        setNumber('')
     }
-
-    render() {
-        
         return (
             <>
-    <FormAddContact onSubmit={this.handleAddInList}> 
+    <FormAddContact onSubmit={handleAddInList}> 
    <LabelAddContact>Name:
     <InputAddContact
     type="text"
     name="name"
-    onChange={this.handelChangeInput}
+    onChange={handelChangeInput}
     pattern= "^[a-zA-Zа-яА-Я]+(([' \-][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
     title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
-                  value={this.state.name}
+                  value={name}
                   placeholder='Name'
     required
           />
@@ -47,10 +43,10 @@ number: ''
     <InputAddContact
     type="tel"
     name="number"
-    onChange={this.handelChangeInput}
+    onChange={handelChangeInput}
   pattern="\+?\d{1,4}?[ .\-\s]?\(?\d{1,3}?\)?[ .\-\s]?\d{1,4}[ .\-\s]?\d{1,4}[ .\-\s]?\d{1,9}"
   title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
-                  value={this.state.number}
+                  value={number}
                   placeholder='Number'
   required
 />
@@ -64,6 +60,9 @@ number: ''
         )
 }
 
+
+AddContact.propTypes = {
+addNewContact: propTypes.func
 }
 
 

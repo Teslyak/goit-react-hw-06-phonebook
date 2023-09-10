@@ -40,6 +40,7 @@ localStorage.setItem('contact-list', JSON.stringify(contacts) )
     setContacts( [...contacts, contact])
   }
 
+  
  const  handleFilter =  (evt) => {
     setFilter(evt.target.value) 
 
