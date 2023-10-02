@@ -3,6 +3,7 @@ import { AddContact } from './AddContact/AddContact'
 import { ContactList } from './ContactList/ContactList';
 import { Filter } from './Filter/Filter';
 import { DivWrap } from './App.styled';
+import { useSelector } from 'react-redux';
 
 const initContacts = [
     {id: 'id-1', name: 'Rosie Simpson', number: '459-12-56'},
@@ -13,6 +14,8 @@ const initContacts = [
 export const App = () => {
   const [contacts, setContacts] = useState(initContacts)
   const [filter, setFilter] = useState('')
+  const phoneBook = useSelector(state => state.phoneBook)
+  
 
 useEffect(() => {
    const contactList = localStorage.getItem('contact-list')
@@ -23,9 +26,9 @@ useEffect(() => {
 
 useEffect(() => {
  
-localStorage.setItem('contact-list', JSON.stringify(contacts) )
+localStorage.setItem('contact-list', JSON.stringify(phoneBook) )
   
-}, [contacts])
+}, [phoneBook])
   
   const addContact = contact => {
     const chekContact = contacts.some(el => {
