@@ -3,7 +3,8 @@ import { AddContact } from './AddContact/AddContact'
 import { ContactList } from './ContactList/ContactList';
 import { Filter } from './Filter/Filter';
 import { DivWrap } from './App.styled';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+
 
 const initContacts = [
     {id: 'id-1', name: 'Rosie Simpson', number: '459-12-56'},
@@ -12,23 +13,24 @@ const initContacts = [
     {id: 'id-4', name: 'Annie Copeland', number: '227-91-26'},
     ]
 export const App = () => {
-  const [contacts, setContacts] = useState(initContacts)
+  const contacts = useSelector(state => state.contacts)
+  const dispatch = useDispatch();
   const [filter, setFilter] = useState('')
-  const phoneBook = useSelector(state => state.phoneBook)
+  
   
 
-useEffect(() => {
-   const contactList = localStorage.getItem('contact-list')
-  if (contactList !== null) {
-      setContacts(JSON.parse(contactList))
-      }
-}, [])
+// useEffect(() => {
+//    const contactList = localStorage.getItem('contact-list')
+//   if (contactList !== null) {
+//       setContacts(JSON.parse(contactList))
+//       }
+// }, [])
 
-useEffect(() => {
+// useEffect(() => {
  
-localStorage.setItem('contact-list', JSON.stringify(phoneBook) )
+// localStorage.setItem('contact-list', JSON.stringify(contacts) )
   
-}, [phoneBook])
+// }, [contacts])
   
   const addContact = contact => {
     const chekContact = contacts.some(el => {
