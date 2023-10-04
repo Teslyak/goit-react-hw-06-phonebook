@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { nanoid } from 'nanoid';
 import { FormAddContact, InputAddContact, LabelAddContact, LabelAddContactTel, ButtonAddContact } from './AddContact.styled';
 import propTypes from 'prop-types'
 
@@ -19,7 +18,7 @@ export const AddContact = ({ addNewContact}) => {
     }
     const handleAddInList = (e) => {
         e.preventDefault();
-        addNewContact({ id: nanoid(5), name, number });
+        addNewContact({name, number });
         setName('')
         setNumber('')
     }

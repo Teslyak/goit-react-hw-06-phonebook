@@ -46,9 +46,6 @@ export const App = () => {
   
   const handleFilter = (evt) => {
     dispatch(getFilter(evt.target.value))
-    
-    // setFilter(evt.target.value) 
-
   }
 
   const getFilterText = () => {
