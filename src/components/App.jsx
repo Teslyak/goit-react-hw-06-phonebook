@@ -5,12 +5,14 @@ import { Filter } from './Filter/Filter';
 import { DivWrap } from './App.styled';
 import { useDispatch, useSelector } from 'react-redux';
 import { addContacts, deleteContacts } from './Redux/contactsSlice';
+import { getFilter } from './Redux/filterSlice';
 
 
 export const App = () => {
   const contacts = useSelector(state => state.contacts)
+  const filter = useSelector(state => state.filter)
   const dispatch = useDispatch();
-  const [filter, setFilter] = useState('')
+  // const [filter, setFilter] = useState('')
 
   // const [contacts, setContacts] = useState(initContacts)
   
@@ -43,8 +45,10 @@ export const App = () => {
   }
 
   
- const  handleFilter =  (evt) => {
-    setFilter(evt.target.value) 
+  const handleFilter = (evt) => {
+    dispatch(getFilter(evt.target.value))
+    
+    // setFilter(evt.target.value) 
 
   }
 
