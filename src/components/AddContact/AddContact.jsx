@@ -1,14 +1,18 @@
 import { useState } from 'react';
 import { FormAddContact, InputAddContact, LabelAddContact, LabelAddContactTel, ButtonAddContact } from './AddContact.styled';
-import propTypes from 'prop-types'
+import { useDispatch, useSelector } from 'react-redux';
+import { addContacts } from 'components/Redux/contactsSlice';
 
-export const AddContact = ({ addNewContact}) => {
-    const [name, setName] = useState('')
-    const [number, setNumber] = useState('')
+
+export const AddContact = () => {
+const contacts = useSelector(state => state.contacts);
+const dispatch = useDispatch();
+const [name, setName] = useState('')
+const [number, setNumber] = useState('')
 
 
     const handelChangeInput = (e) => {
-        switch (e.target.name) {
+        switch (e.target.name) {            
         case 'name' :
         return setName(e.currentTarget.value)
         case 'number':
@@ -18,9 +22,19 @@ export const AddContact = ({ addNewContact}) => {
     }
     const handleAddInList = (e) => {
         e.preventDefault();
-        addNewContact({name, number });
-        setName('')
+          const chekContact = contacts.some(el => {
+              return el.name.trim() === name.trim();
+          });
+        if (chekContact) {
+            alert(`${name}  is already in contacts `)
+            
+            return;    
+    }
+        dispatch(addContacts({ name, number }));             
+        setName('')         
         setNumber('')
+        
+    
     }
         return (
             <>
@@ -57,11 +71,6 @@ export const AddContact = ({ addNewContact}) => {
             </>
 
         )
-}
-
-
-AddContact.propTypes = {
-addNewContact: propTypes.func
 }
 
 
